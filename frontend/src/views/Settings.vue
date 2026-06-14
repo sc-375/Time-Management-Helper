@@ -59,7 +59,10 @@
             <el-input v-model="emailForm.sender_email" placeholder="your@qq.com" />
           </el-form-item>
           <el-form-item label="授权码">
-            <el-input v-model="emailForm.auth_code" type="password" show-password placeholder="留空保持不变" @input="emailAuthDirty = true" />
+            <div style="display:flex;flex-direction:column;gap:4px;width:100%">
+              <el-input v-model="emailForm.auth_code" type="password" show-password :placeholder="emailConfigured ? '已配置，留空不修改' : '请输入16位授权码'" @input="emailAuthDirty = true" />
+              <span v-if="emailConfigured && !emailAuthDirty" style="font-size:11px;color:var(--priority-low)">&#10003; 已配置，无需重新输入</span>
+            </div>
           </el-form-item>
           <el-form-item label="启用">
             <el-switch v-model="emailForm.enabled" />
@@ -100,6 +103,7 @@ const emailTesting = ref(false)
 const llmConnected = ref(false)
 const emailAuthDirty = ref(false)
 const llmKeyDirty = ref(false)
+const emailConfigured = ref(false)
 
 const llmForm = reactive({
   provider: 'ollama',
@@ -127,6 +131,7 @@ onMounted(async () => {
 
   try {
     const email = await emailApi.getConfig()
+    emailConfigured.value = email.auth_code && email.auth_code.includes('****')
     Object.assign(emailForm, { ...email, auth_code: '' })
   } catch { /* use defaults */ }
 })
