@@ -73,8 +73,12 @@ class AIService:
 
     def create_task_from_nl(self, db: Session, text: str) -> list[dict]:
         """Ask the LLM to parse natural language into structured task previews."""
+        from datetime import date as dt_date
         adapter = self._get_adapter(db)
+        today = dt_date.today()
         prompt = f"""从以下用户输入中提取任务信息，以 JSON 数组格式返回（只返回 JSON，不要其他文字）。
+
+今天是 {today.isoformat()}。请根据当前日期计算相对日期（明天={today}的第二天，周五=本周五）。
 
 用户输入：{text}
 
