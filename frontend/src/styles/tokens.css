@@ -1,4 +1,4 @@
-/* Design tokens */
+/* Quiet Control — Design tokens */
 :root {
   --bg-root: #F7F5F2;
   --bg-card: #FFFFFF;
@@ -24,23 +24,28 @@
   --font-body: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif;
 }
 
-/* ── Global resets ── */
+/* ── Global reset ── */
 * { box-sizing: border-box; }
 
 html, body {
   margin: 0; padding: 0;
-  background: #F7F5F2 !important;
+  background: #F7F5F2;
   color: #2D2A28;
   font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-#app {
+#app, .app-container, .el-container,
+.main-area, .main-content {
   background: #F7F5F2;
 }
 
-/* ── Element Plus direct overrides ── */
-/* Primary button */
+/* ── Sidebar ── */
+.sidebar {
+  background: #1E293B !important;
+}
+
+/* ── Buttons ── */
 .el-button--primary {
   background-color: #4F6EF7 !important;
   border-color: #4F6EF7 !important;
@@ -51,14 +56,14 @@ html, body {
   border-color: #3D56D6 !important;
 }
 
-/* Card */
+/* ── Cards ── */
 .el-card {
   border-radius: 10px !important;
   border: 1px solid #F0EDE8 !important;
   box-shadow: 0 1px 2px rgba(0,0,0,0.04) !important;
 }
 
-/* Input */
+/* ── Inputs ── */
 .el-input__wrapper {
   border-radius: 6px !important;
   border: 1px solid #E5E1DB !important;
@@ -68,34 +73,25 @@ html, body {
   border-color: #4F6EF7 !important;
 }
 
-/* Dialog */
+/* ── Dialog ── */
 .el-dialog {
   border-radius: 12px !important;
 }
 
-/* Tag */
+/* ── Tags ── */
 .el-tag {
   border-radius: 4px !important;
 }
 
-/* Danger button / tag */
-.el-button--danger { background-color: #E0555A !important; border-color: #E0555A !important; }
-.el-tag--danger { background-color: rgba(224,85,90,0.1) !important; color: #E0555A !important; border-color: rgba(224,85,90,0.2) !important; }
-
-/* Main content area — remove default padding */
-.el-main {
-  padding: 0 !important;
-  background: #F7F5F2;
+/* Danger accents */
+.el-button--danger {
+  background-color: #E0555A !important;
+  border-color: #E0555A !important;
 }
-
-/* Header */
-.el-header {
-  background: #F7F5F2;
-}
-
-/* Aside (sidebar override for any Element aside) */
-.el-aside {
-  background: #1E293B;
+.el-tag--danger {
+  background-color: rgba(224,85,90,0.1) !important;
+  color: #E0555A !important;
+  border-color: rgba(224,85,90,0.2) !important;
 }
 
 /* ── Scrollbar ── */
