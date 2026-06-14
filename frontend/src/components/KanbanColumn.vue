@@ -10,6 +10,8 @@
         :key="task.id"
         :task="task"
         @click="$emit('task-click', task)"
+        @delete="$emit('delete-task', task)"
+        @complete="$emit('complete-task', task)"
         draggable="true"
         @dragstart="onDragStart($event, task)"
       />
@@ -26,6 +28,8 @@ defineProps<{ title: string; tasks: TaskData[] }>()
 const emit = defineEmits<{
   'task-click': [task: TaskData]
   'drop-task': [taskId: number, newStatus: string]
+  'delete-task': [task: TaskData]
+  'complete-task': [task: TaskData]
 }>()
 
 function onDragStart(e: DragEvent, task: TaskData) {

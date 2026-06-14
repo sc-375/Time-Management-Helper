@@ -26,18 +26,24 @@
         :tasks="todoTasks"
         @task-click="openDetail"
         @drop-task="onDrop"
+        @delete-task="onDeleteTask"
+        @complete-task="onCompleteTask"
       />
       <KanbanColumn
         title="进行中"
         :tasks="inProgressTasks"
         @task-click="openDetail"
         @drop-task="onDrop"
+        @delete-task="onDeleteTask"
+        @complete-task="onCompleteTask"
       />
       <KanbanColumn
         title="已完成"
         :tasks="doneTasks"
         @task-click="openDetail"
         @drop-task="onDrop"
+        @delete-task="onDeleteTask"
+        @complete-task="onCompleteTask"
       />
     </div>
 
@@ -133,6 +139,20 @@ async function confirmAITask(preview: any) {
   await store.createTask(preview)
   ElMessage.success('任务已添加')
   aiPreviews.value = aiPreviews.value.filter(p => p !== preview)
+}
+
+async function onDeleteTask(task: TaskData) {
+  if (task.id) {
+    await store.deleteTask(task.id)
+    ElMessage.success('任务已删除')
+  }
+}
+
+async function onCompleteTask(task: TaskData) {
+  if (task.id) {
+    await store.updateStatus(task.id, 'done')
+    ElMessage.success('任务已完成')
+  }
 }
 </script>
 

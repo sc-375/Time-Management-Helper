@@ -11,3 +11,11 @@ venv/
 node_modules/
 frontend/dist/
 frontend/node_modules/.vite/
+
+# Project docs & config (not for distribution)
+.claude/
+skills-lock.json
+项目说明.md
+
+# Tests
+backend/tests/
