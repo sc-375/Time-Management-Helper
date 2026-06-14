@@ -68,6 +68,22 @@
             <el-button type="primary" @click="saveEmail">保存配置</el-button>
           </el-form-item>
         </el-form>
+
+        <el-collapse class="email-guide">
+          <el-collapse-item title="如何获取 QQ 邮箱授权码？" name="1">
+            <div class="guide-steps">
+              <div class="step"><span class="step-num">1</span> 登录 <a href="https://mail.qq.com" target="_blank">QQ 邮箱</a></div>
+              <div class="step"><span class="step-num">2</span> 点击顶部 <strong>设置</strong> → <strong>帐户</strong></div>
+              <div class="step"><span class="step-num">3</span> 向下滚动找到 <strong>POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV 服务</strong></div>
+              <div class="step"><span class="step-num">4</span> 开启 <strong>SMTP 服务</strong>（IMAP/SMTP 或 POP3/SMTP 均可）</div>
+              <div class="step"><span class="step-num">5</span> 按提示发送短信验证，获取 <strong>16 位授权码</strong></div>
+              <div class="step"><span class="step-num">6</span> 将授权码粘贴到上方「授权码」输入框</div>
+            </div>
+            <div class="guide-note">
+              <span>📌 发件人即你的 QQ 邮箱本身；每日发送上限约 100 封。</span>
+            </div>
+          </el-collapse-item>
+        </el-collapse>
       </el-card>
     </div>
   </div>
@@ -165,4 +181,30 @@ async function testEmail() {
 .conn-dot.connected { background: var(--priority-low); }
 
 .card-title { font-size: 15px; font-weight: 600; color: var(--text-primary); }
+
+.email-guide { margin-top: 16px; }
+.email-guide :deep(.el-collapse-item__header) {
+  font-size: 13px; color: var(--text-secondary); border: none;
+}
+.email-guide :deep(.el-collapse-item__wrap) {
+  border: none; background: transparent;
+}
+
+.guide-steps { display: flex; flex-direction: column; gap: 8px; padding: 8px 0; }
+.step {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; color: var(--text-primary); line-height: 1.5;
+}
+.step a { color: var(--accent); }
+.step-num {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--bg-kanban-col); display: flex;
+  align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600; flex-shrink: 0;
+  color: var(--text-secondary);
+}
+.guide-note {
+  margin-top: 8px; padding: 10px 12px; background: var(--bg-kanban-col);
+  border-radius: var(--radius-sm); font-size: 12px; color: var(--text-secondary);
+}
 </style>
