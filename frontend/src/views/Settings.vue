@@ -71,28 +71,16 @@
 
         <el-collapse class="email-guide">
           <el-collapse-item title="如何获取 QQ 邮箱授权码？" name="1">
-            <div class="guide-section">
-              <span class="guide-label">桌面浏览器</span>
-              <div class="guide-steps">
-                <div class="step"><span class="step-num">1</span> 打开 <a href="https://mail.qq.com" target="_blank">mail.qq.com</a>，扫码或账号密码登录</div>
-                <div class="step"><span class="step-num">2</span> 点击页面上方 <strong>设置</strong> → 切换到 <strong>帐户</strong> 标签</div>
-                <div class="step"><span class="step-num">3</span> 向下滚动至 <strong>POP3/IMAP/SMTP/...服务</strong> 区域</div>
-                <div class="step"><span class="step-num">4</span> 点击 <strong>IMAP/SMTP 服务</strong> 后的 <strong>开启</strong> 按钮</div>
-                <div class="step"><span class="step-num">5</span> 按弹窗提示发送短信至指定号码 → 点击"我已发送"</div>
-                <div class="step"><span class="step-num">6</span> 页面显示 <strong>16 位授权码</strong>，复制后填入上方「授权码」输入框</div>
-              </div>
-            </div>
-            <div class="guide-section">
-              <span class="guide-label">手机 QQ 邮箱 App</span>
-              <div class="guide-steps">
-                <div class="step"><span class="step-num">1</span> 打开 QQ 邮箱 App → 底部 <strong>我</strong> → <strong>设置</strong></div>
-                <div class="step"><span class="step-num">2</span> 选择当前邮箱账号 → <strong>帐户与安全</strong></div>
-                <div class="step"><span class="step-num">3</span> 找到并开启 <strong>POP3/SMTP 服务</strong> 或 <strong>IMAP/SMTP 服务</strong></div>
-                <div class="step"><span class="step-num">4</span> 按提示发送短信验证，获取 16 位授权码</div>
-              </div>
+            <div class="guide-steps">
+              <div class="step"><span class="step-num">1</span> 打开 <a href="https://mail.qq.com" target="_blank">mail.qq.com</a>，扫码或账号密码登录</div>
+              <div class="step"><span class="step-num">2</span> 点击页面上方 <strong>设置</strong> → 切换到 <strong>帐户</strong> 标签</div>
+              <div class="step"><span class="step-num">3</span> 向下滚动至 <strong>POP3/IMAP/SMTP 服务</strong> 区域</div>
+              <div class="step"><span class="step-num">4</span> 点击 <strong>IMAP/SMTP 服务</strong> 后的 <strong>开启</strong> 按钮</div>
+              <div class="step"><span class="step-num">5</span> 按弹窗提示发送短信验证 → 点击"我已发送"</div>
+              <div class="step"><span class="step-num">6</span> 复制生成的 <strong>16 位授权码</strong>，填入上方「授权码」输入框</div>
             </div>
             <div class="guide-note">
-              <span>📌 提示：发件人即配置的 QQ 邮箱地址；该邮箱将同时发送提醒给自己。每日发送上限约 100 封（普通用户）。授权码仅需配置一次，平台会自动加密存储。</span>
+              <span>📌 手机端如找不到 SMTP 选项，建议用 PC 浏览器操作。发件人即配置的 QQ 邮箱地址，会发送提醒给自己。每日上限约 100 封。授权码仅配置一次，自动加密存储。</span>
             </div>
           </el-collapse-item>
         </el-collapse>
