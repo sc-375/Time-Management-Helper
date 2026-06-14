@@ -8,3 +8,6 @@ build/
 data/
 .venv/
 venv/
+node_modules/
+frontend/dist/
+frontend/node_modules/.vite/

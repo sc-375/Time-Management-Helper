@@ -2,7 +2,7 @@
 import enum
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, Text, Enum, Date, Time, DateTime, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 from ..database import Base
 
 
@@ -35,5 +35,5 @@ class Task(Base):
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
 
-    parent = relationship("Task", remote_side=[id], backref="subtasks")
+    parent = relationship("Task", remote_side=[id], backref=backref("subtasks", cascade="all, delete-orphan"))
     reminders = relationship("Reminder", back_populates="task", cascade="all, delete-orphan")
