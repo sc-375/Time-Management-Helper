@@ -1,6 +1,6 @@
 <template>
   <div class="task-board-page">
-    <div class="board-header">
+    <header class="board-header">
       <h2>任务看板</h2>
       <div class="header-actions">
         <el-input
@@ -8,17 +8,17 @@
           placeholder="搜索任务..."
           :prefix-icon="Search"
           clearable
-          style="width: 240px"
+          class="search-input"
           @input="onSearch"
         />
         <el-button type="primary" @click="showCreateDialog = true">
-          <el-icon><Plus /></el-icon> 创建任务
+          <el-icon class="btn-icon"><Plus /></el-icon>创建任务
         </el-button>
-        <el-button @click="showAICreateDialog = true">
-          <el-icon><MagicStick /></el-icon> AI 快速创建
+        <el-button class="btn-ghost" @click="showAICreateDialog = true">
+          <el-icon class="btn-icon"><MagicStick /></el-icon>AI 快速创建
         </el-button>
       </div>
-    </div>
+    </header>
 
     <div class="kanban-container">
       <KanbanColumn
@@ -137,14 +137,39 @@ async function confirmAITask(preview: any) {
 </script>
 
 <style scoped>
-.task-board-page { height: 100%; display: flex; flex-direction: column; }
+.task-board-page {
+  height: 100%; display: flex; flex-direction: column;
+  background: var(--bg-root);
+}
+
 .board-header {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 16px 24px; border-bottom: 1px solid #e4e7ed;
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--border);
 }
-.board-header h2 { margin: 0; font-size: 20px; }
-.header-actions { display: flex; gap: 12px; align-items: center; }
+.board-header h2 {
+  margin: 0; font-size: 18px; font-weight: 600;
+  color: var(--text-primary); letter-spacing: 0.3px;
+}
+
+.header-actions {
+  display: flex; gap: 10px; align-items: center;
+}
+.search-input { width: 220px; }
+
+.btn-icon { margin-right: 4px; }
+
+.btn-ghost {
+  border: 1px solid var(--border) !important;
+  background: var(--bg-card) !important;
+  color: var(--text-secondary) !important;
+}
+.btn-ghost:hover {
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
+}
+
 .kanban-container {
-  flex: 1; display: flex; gap: 16px; padding: 24px; overflow-x: auto;
+  flex: 1; display: flex; gap: 16px; padding: 20px 28px; overflow-x: auto;
 }
 </style>

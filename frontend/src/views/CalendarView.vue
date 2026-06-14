@@ -1,12 +1,12 @@
 <template>
   <div class="calendar-page">
-    <div class="page-header">
+    <header class="page-header">
       <h2>日历视图</h2>
-      <el-radio-group v-model="viewMode">
-        <el-radio-button value="month">月视图</el-radio-button>
-        <el-radio-button value="week">周视图</el-radio-button>
+      <el-radio-group v-model="viewMode" size="small">
+        <el-radio-button value="month">月</el-radio-button>
+        <el-radio-button value="week">周</el-radio-button>
       </el-radio-group>
-    </div>
+    </header>
 
     <div class="calendar-content">
       <MonthCalendar
@@ -36,7 +36,7 @@
           <el-tag size="small" style="margin-left: 4px">{{ task.status }}</el-tag>
         </el-card>
       </div>
-      <div v-if="!selectedTasks.length">当天无任务</div>
+      <div v-if="!selectedTasks.length" class="empty-day">当天无任务</div>
     </el-dialog>
   </div>
 </template>
@@ -117,8 +117,11 @@ function priorityType(p: string) {
 .calendar-page { height: 100%; display: flex; flex-direction: column; }
 .page-header {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 16px 24px; border-bottom: 1px solid #e4e7ed;
+  padding: 20px 28px; border-bottom: 1px solid var(--border);
 }
-.page-header h2 { margin: 0; }
-.calendar-content { flex: 1; padding: 24px; overflow-y: auto; }
+.page-header h2 {
+  margin: 0; font-size: 18px; font-weight: 600; color: var(--text-primary);
+}
+.calendar-content { flex: 1; padding: 24px 28px; overflow-y: auto; }
+.empty-day { text-align: center; color: var(--text-muted); padding: 24px; }
 </style>

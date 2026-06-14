@@ -31,15 +31,22 @@ const renderedContent = computed(() => {
 </script>
 
 <style scoped>
-.chat-msg { display: flex; margin-bottom: 16px; }
+.chat-msg { display: flex; margin-bottom: 20px; }
 .chat-msg.assistant { justify-content: flex-start; }
 .chat-msg.user { justify-content: flex-end; }
-.msg-body { max-width: 75%; }
+.msg-body { max-width: 72%; }
+
+.msg-content {
+  padding: 14px 18px; font-size: 14px; line-height: 1.65;
+  border-radius: 14px;
+}
 .chat-msg.user .msg-content {
-  background: #409eff; color: #fff; border-radius: 12px 12px 4px 12px;
+  background: var(--accent); color: #fff;
+  border-bottom-right-radius: 4px;
 }
 .chat-msg.assistant .msg-content {
-  background: #f5f7fa; color: #303133; border-radius: 12px 12px 12px 4px;
+  background: var(--bg-card); color: var(--text-primary);
+  border: 1px solid var(--border-light);
+  border-bottom-left-radius: 4px;
 }
-.msg-content { padding: 12px 16px; font-size: 14px; line-height: 1.6; }
 </style>

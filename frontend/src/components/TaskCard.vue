@@ -10,11 +10,11 @@
       <span class="title">{{ task.title }}</span>
     </div>
     <div class="card-meta" v-if="task.due_date || task.tags">
-      <el-tag v-if="task.due_date" size="small" type="info">{{ task.due_date }}</el-tag>
-      <el-tag v-for="tag in tagList" :key="tag" size="small" class="tag-item">{{ tag }}</el-tag>
+      <el-tag v-if="task.due_date" size="small" effect="plain">{{ task.due_date }}</el-tag>
+      <el-tag v-for="tag in tagList" :key="tag" size="small" effect="plain" class="tag-item">{{ tag }}</el-tag>
     </div>
     <div class="card-footer" v-if="task.subtasks?.length">
-      <span class="subtask-count">子任务: {{ task.subtasks.length }}</span>
+      <span class="subtask-count">{{ task.subtasks.length }} 个子任务</span>
     </div>
   </el-card>
 </template>
@@ -35,23 +35,40 @@ const tagList = computed(() => {
 .task-card {
   margin-bottom: 8px;
   cursor: pointer;
-  border-left: 3px solid #ddd;
-  transition: transform 0.2s;
+  border-left: none;
+  border-radius: var(--radius-sm);
+  transition: all 0.18s ease;
+  border: 1px solid var(--border-light) !important;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
 }
-.task-card:hover { transform: translateY(-1px); }
-.priority-high { border-left-color: #f56c6c; }
-.priority-medium { border-left-color: #e6a23c; }
-.priority-low { border-left-color: #67c23a; }
-.card-header { display: flex; align-items: center; gap: 8px; }
+.task-card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.priority-high { border-left: 3px solid var(--priority-high); }
+.priority-medium { border-left: 3px solid var(--priority-medium); }
+.priority-low { border-left: 3px solid var(--priority-low); }
+
+.card-header {
+  display: flex; align-items: center; gap: 8px;
+}
 .priority-dot {
   width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
 }
-.priority-dot.high { background: #f56c6c; }
-.priority-dot.medium { background: #e6a23c; }
-.priority-dot.low { background: #67c23a; }
-.title { font-size: 14px; font-weight: 500; }
-.card-meta { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px; }
+.priority-dot.high { background: var(--priority-high); }
+.priority-dot.medium { background: var(--priority-medium); }
+.priority-dot.low { background: var(--priority-low); }
+.title {
+  font-size: 14px; font-weight: 500; color: var(--text-primary);
+}
+.card-meta {
+  margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px;
+}
 .card-footer { margin-top: 8px; }
-.subtask-count { font-size: 12px; color: #909399; }
+.subtask-count {
+  font-size: 12px; color: var(--text-secondary);
+}
 .tag-item { margin-left: 4px; }
 </style>

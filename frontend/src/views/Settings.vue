@@ -1,16 +1,18 @@
 <template>
   <div class="settings-page">
-    <div class="page-header">
+    <header class="page-header">
       <h2>设置</h2>
-    </div>
+    </header>
 
     <div class="settings-content">
-      <!-- LLM Config Card -->
       <el-card class="config-card">
         <template #header>
           <div class="card-header-row">
-            <span class="card-title">🤖 大模型配置</span>
-            <el-button size="small" :loading="llmTesting" @click="testLLM">测试连接</el-button>
+            <span class="card-title">大模型配置</span>
+            <div class="card-header-right">
+              <span class="conn-dot" :class="{ connected: llmConnected }"></span>
+              <el-button size="small" :loading="llmTesting" @click="testLLM">测试连接</el-button>
+            </div>
           </div>
         </template>
         <el-form :model="llmForm" label-width="100px">
@@ -34,16 +36,15 @@
             <el-switch v-model="llmForm.enabled" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="saveLLM">保存 LLM 配置</el-button>
+            <el-button type="primary" @click="saveLLM">保存配置</el-button>
           </el-form-item>
         </el-form>
       </el-card>
 
-      <!-- Email Config Card -->
       <el-card class="config-card">
         <template #header>
           <div class="card-header-row">
-            <span class="card-title">📧 邮件配置</span>
+            <span class="card-title">邮件提醒</span>
             <el-button size="small" :loading="emailTesting" @click="testEmail">发送测试邮件</el-button>
           </div>
         </template>
@@ -64,7 +65,7 @@
             <el-switch v-model="emailForm.enabled" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="saveEmail">保存邮件配置</el-button>
+            <el-button type="primary" @click="saveEmail">保存配置</el-button>
           </el-form-item>
         </el-form>
       </el-card>
@@ -80,6 +81,7 @@ import { emailApi } from '@/api/email'
 
 const llmTesting = ref(false)
 const emailTesting = ref(false)
+const llmConnected = ref(false)
 
 const llmForm = reactive({
   provider: 'ollama',
@@ -101,6 +103,8 @@ onMounted(async () => {
   try {
     const llm = await settingsApi.getLLMConfig()
     Object.assign(llmForm, { ...llm, api_key: '' })
+    const test = await settingsApi.testLLM()
+    llmConnected.value = test.code === 0
   } catch { /* use defaults */ }
 
   try {
@@ -118,6 +122,7 @@ async function testLLM() {
   llmTesting.value = true
   try {
     const res = await settingsApi.testLLM()
+    llmConnected.value = res.code === 0
     ElMessage({ type: res.code === 0 ? 'success' : 'error', message: res.message })
   } finally { llmTesting.value = false }
 }
@@ -138,16 +143,26 @@ async function testEmail() {
 
 <style scoped>
 .settings-page { height: 100%; display: flex; flex-direction: column; }
+
 .page-header {
-  display: flex; align-items: center; padding: 16px 24px;
-  border-bottom: 1px solid #e4e7ed;
+  display: flex; align-items: center; padding: 20px 28px;
+  border-bottom: 1px solid var(--border);
 }
-.page-header h2 { margin: 0; }
+.page-header h2 { margin: 0; font-size: 18px; font-weight: 600; color: var(--text-primary); }
+
 .settings-content {
-  flex: 1; overflow-y: auto; padding: 24px;
-  display: flex; flex-direction: column; gap: 24px; max-width: 800px;
+  flex: 1; overflow-y: auto; padding: 24px 28px;
+  display: flex; flex-direction: column; gap: 20px; max-width: 760px;
 }
-.config-card { }
+
 .card-header-row { display: flex; justify-content: space-between; align-items: center; }
-.card-title { font-size: 16px; font-weight: 600; }
+.card-header-right { display: flex; align-items: center; gap: 8px; }
+
+.conn-dot {
+  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+  background: var(--priority-high);
+}
+.conn-dot.connected { background: var(--priority-low); }
+
+.card-title { font-size: 15px; font-weight: 600; color: var(--text-primary); }
 </style>

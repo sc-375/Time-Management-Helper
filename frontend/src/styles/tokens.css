@@ -1,0 +1,138 @@
+/* Design tokens — Quiet Control palette */
+:root {
+  /* Backgrounds */
+  --bg-root: #F7F5F2;
+  --bg-card: #FFFFFF;
+  --bg-sidebar: #1E293B;
+  --bg-sidebar-hover: #334155;
+  --bg-sidebar-active: rgba(79, 110, 247, 0.15);
+  --bg-kanban-col: #EEECE8;
+
+  /* Primary / Actions */
+  --accent: #4F6EF7;
+  --accent-light: rgba(79, 110, 247, 0.08);
+  --accent-hover: #3D56D6;
+
+  /* Priority */
+  --priority-high: #E0555A;
+  --priority-high-bg: rgba(224, 85, 90, 0.07);
+  --priority-medium: #D4952A;
+  --priority-medium-bg: rgba(212, 149, 42, 0.07);
+  --priority-low: #5B9E6F;
+  --priority-low-bg: rgba(91, 158, 111, 0.07);
+
+  /* Text */
+  --text-primary: #2D2A28;
+  --text-secondary: #7A7672;
+  --text-muted: #B0ACA7;
+  --text-on-sidebar: #94A3B8;
+  --text-on-sidebar-active: #E2E8F0;
+
+  /* Borders & Dividers */
+  --border: #E5E1DB;
+  --border-light: #F0EDE8;
+
+  /* Shadows — quiet, not heavy */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 2px 8px rgba(0,0,0,0.06);
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+
+  /* Typography */
+  --font-body: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif;
+  --font-mono: 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+}
+
+/* Element Plus theme override — map our tokens to Element variables */
+:root {
+  --el-color-primary: var(--accent);
+  --el-color-primary-light-3: #7B93F9;
+  --el-color-primary-light-5: #A3B4FB;
+  --el-color-primary-light-7: #CBD4FD;
+  --el-color-primary-light-9: #EEF1FE;
+  --el-color-danger: var(--priority-high);
+  --el-color-warning: var(--priority-medium);
+  --el-color-success: var(--priority-low);
+  --el-border-radius-base: var(--radius-sm);
+  --el-font-family: var(--font-body);
+  --el-bg-color: var(--bg-root);
+  --el-bg-color-overlay: var(--bg-card);
+  --el-text-color-primary: var(--text-primary);
+  --el-text-color-regular: var(--text-primary);
+  --el-text-color-secondary: var(--text-secondary);
+  --el-border-color: var(--border);
+  --el-border-color-light: var(--border-light);
+  --el-fill-color-blank: var(--bg-card);
+}
+
+/* Global reset */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-root);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar — quiet */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Element Plus overrides for a cleaner look */
+.el-card {
+  border-radius: var(--radius-md) !important;
+  border: 1px solid var(--border-light) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.el-button--primary {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  box-shadow: none !important;
+}
+.el-button--primary:hover {
+  background: var(--accent-hover) !important;
+}
+
+.el-tag {
+  border-radius: 4px !important;
+  font-weight: 500 !important;
+}
+
+.el-input__wrapper {
+  border-radius: var(--radius-sm) !important;
+  box-shadow: none !important;
+  border: 1px solid var(--border) !important;
+}
+.el-input__wrapper:hover {
+  border-color: var(--accent) !important;
+}
+
+.el-dialog {
+  border-radius: 12px !important;
+}
+.el-dialog__header {
+  padding: 20px 24px 0 !important;
+}
+.el-dialog__body {
+  padding: 20px 24px !important;
+}
