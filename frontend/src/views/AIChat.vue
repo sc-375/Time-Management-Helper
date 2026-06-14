@@ -82,10 +82,27 @@ async function send() {
   }
 }
 
+function sanitizePreview(p: any) {
+  const priority = ['high','medium','low'].includes(p.priority) ? p.priority : 'medium'
+  let due_date: string | null = null
+  if (p.due_date && typeof p.due_date === 'string') {
+    const m = p.due_date.match(/^(\d{4}-\d{2}-\d{2})/)
+    if (m) due_date = m[1]
+  }
+  return {
+    title: String(p.title || '').slice(0, 200),
+    priority,
+    estimated_minutes: Math.max(0, parseInt(p.estimated_minutes) || 45),
+    due_date: due_date,
+    tags: '',
+  }
+}
+
 async function addTask(task: any) {
   try {
-    await taskStore.createTask(task)
-    ElMessage.success(`「${task.title}」已添加到待办列表`)
+    const clean = sanitizePreview(task)
+    await taskStore.createTask(clean)
+    ElMessage.success(`「${clean.title}」已添加到待办列表`)
   } catch { /* handled by interceptor */ }
 }
 </script>

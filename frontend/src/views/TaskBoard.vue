@@ -135,8 +135,26 @@ async function doAIParse() {
   }
 }
 
+function sanitizePreview(p: any) {
+  const priority = ['high','medium','low'].includes(p.priority) ? p.priority : 'medium'
+  let due_date: string | null = null
+  if (p.due_date && typeof p.due_date === 'string') {
+    // Extract YYYY-MM-DD from any date string
+    const m = p.due_date.match(/^(\d{4}-\d{2}-\d{2})/)
+    if (m) due_date = m[1]
+  }
+  return {
+    title: String(p.title || '').slice(0, 200),
+    priority,
+    estimated_minutes: Math.max(0, parseInt(p.estimated_minutes) || 45),
+    due_date: due_date,
+    tags: '',
+  }
+}
+
 async function confirmAITask(preview: any) {
-  await store.createTask(preview)
+  const clean = sanitizePreview(preview)
+  await store.createTask(clean)
   ElMessage.success('任务已添加')
   aiPreviews.value = aiPreviews.value.filter(p => p !== preview)
 }
