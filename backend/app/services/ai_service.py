@@ -76,19 +76,21 @@ class AIService:
         from datetime import date as dt_date
         adapter = self._get_adapter(db)
         today = dt_date.today()
-        prompt = f"""从以下用户输入中提取任务信息，以 JSON 数组格式返回（只返回 JSON，不要其他文字）。
-
-今天是 {today.isoformat()}。请根据当前日期计算相对日期（明天={today}的第二天，周五=本周五）。
+        prompt = f"""今天是 {today.isoformat()}。请将以下用户输入拆解为独立任务，返回 JSON 数组。
 
 用户输入：{text}
 
-每个任务对象格式：
-{{"title": "任务标题（动词+名词，≤15字）", "priority": "high|medium|low", "estimated_minutes": 45, "due_date": "YYYY-MM-DD 或 null"}}
+要求：
+1. 每个活动生成一条任务，不要把一个活动拆成多条
+2. title 用动词+名词格式，≤15字
+3. priority: 用户明确说了"高"/"优先"用 high，否则 medium
+4. estimated_minutes: 有明确时间的按实际时长，否则默认 45
+5. due_date: 用 YYYY-MM-DD 格式。明天={today}的第二天。没提到日期的填 null
 
 只返回 JSON 数组。"""
 
         try:
-            raw = adapter.chat([{"role": "user", "content": prompt}], "你是一个任务解析助手。仅返回 JSON。")
+            raw = adapter.chat([{"role": "user", "content": prompt}], "你是任务解析助手。只输出 JSON。")
             json_match = re.search(r"\[.*\]", raw, re.DOTALL)
             if json_match:
                 return json.loads(json_match.group())

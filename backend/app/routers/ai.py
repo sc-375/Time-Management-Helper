@@ -23,10 +23,10 @@ _TASK_HINT_RE = re.compile(
 def chat(request: ChatRequest, db: Session = Depends(get_db)):
     try:
         reply = ai_service.chat(db, request.message)
-        # First try to parse ```task blocks from the AI reply
-        task_previews = ai_service.parse_task_from_text(reply)
-        # If no task blocks and user input looks like task creation, try NL parsing
-        if not task_previews and _TASK_HINT_RE.search(request.message):
+        # Parse tasks from user input only when it contains task-like keywords.
+        # Do NOT parse ```task from AI reply — 7B models don't follow the format reliably.
+        task_previews = []
+        if _TASK_HINT_RE.search(request.message):
             task_previews = ai_service.create_task_from_nl(db, request.message)
         return success(data={"reply": reply, "task_previews": task_previews})
     except ValueError as e:
