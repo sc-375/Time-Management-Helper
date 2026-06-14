@@ -27,7 +27,7 @@ def get_llm_config(db: Session = Depends(get_db)):
 
     return success(data={
         "id": config.id,
-        "provider": str(config.provider) if hasattr(config.provider, "value") else config.provider,
+        "provider": config.provider.value if hasattr(config.provider, "value") else config.provider,
         "base_url": config.base_url,
         "api_key": masked_key,
         "model": config.model,

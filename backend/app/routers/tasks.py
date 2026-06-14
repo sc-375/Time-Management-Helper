@@ -68,8 +68,8 @@ def _task_to_out(t) -> dict:
         "id": t.id,
         "title": t.title,
         "description": t.description,
-        "priority": str(t.priority) if hasattr(t.priority, "value") else t.priority,
-        "status": str(t.status) if hasattr(t.status, "value") else t.status,
+        "priority": t.priority.value if hasattr(t.priority, "value") else t.priority,
+        "status": t.status.value if hasattr(t.status, "value") else t.status,
         "due_date": str(t.due_date) if t.due_date else None,
         "due_time": str(t.due_time) if t.due_time else None,
         "estimated_minutes": t.estimated_minutes,
@@ -89,7 +89,7 @@ def _task_to_detail(t) -> dict:
             "id": r.id,
             "task_id": r.task_id,
             "remind_at": str(r.remind_at),
-            "method": str(r.method) if hasattr(r.method, "value") else r.method,
+            "method": r.method.value if hasattr(r.method, "value") else r.method,
             "sent": r.sent,
         }
         for r in (t.reminders or [])

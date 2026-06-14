@@ -64,7 +64,7 @@ def list_reminders(task_id: int, db: Session = Depends(get_db)):
     reminders = db.query(Reminder).filter(Reminder.task_id == task_id).all()
     return success(data=[
         {"id": r.id, "task_id": r.task_id, "remind_at": str(r.remind_at),
-         "method": str(r.method) if hasattr(r.method, "value") else r.method,
+         "method": r.method.value if hasattr(r.method, "value") else r.method,
          "sent": r.sent}
         for r in reminders
     ])

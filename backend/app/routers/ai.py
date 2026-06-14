@@ -26,7 +26,7 @@ def get_history(db: Session = Depends(get_db)):
     return success(data=[
         {
             "id": m.id,
-            "role": str(m.role) if hasattr(m.role, "value") else m.role,
+            "role": m.role.value if hasattr(m.role, "value") else m.role,
             "content": m.content,
             "created_at": str(m.created_at),
         }

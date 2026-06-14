@@ -12,7 +12,7 @@ def build_system_prompt(db: Session) -> str:
     weekday = WEEKDAYS[today.weekday()]
     tasks = db.query(Task).filter(Task.status != "done").order_by(Task.priority).all()
     tasks_json = json.dumps(
-        [{"id": t.id, "title": t.title, "priority": str(t.priority) if hasattr(t.priority, "value") else t.priority,
+        [{"id": t.id, "title": t.title, "priority": t.priority.value if hasattr(t.priority, "value") else t.priority,
           "due_date": str(t.due_date) if t.due_date else None} for t in tasks],
         ensure_ascii=False,
     )

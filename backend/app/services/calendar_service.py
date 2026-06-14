@@ -31,8 +31,8 @@ class CalendarService:
             result[key].append({
                 "id": t.id,
                 "title": t.title,
-                "priority": str(t.priority) if hasattr(t.priority, "value") else t.priority,
-                "status": str(t.status) if hasattr(t.status, "value") else t.status,
+                "priority": t.priority.value if hasattr(t.priority, "value") else t.priority,
+                "status": t.status.value if hasattr(t.status, "value") else t.status,
                 "due_time": str(t.due_time) if t.due_time else None,
             })
         return result
@@ -58,8 +58,8 @@ class CalendarService:
             result[key].append({
                 "id": t.id,
                 "title": t.title,
-                "priority": str(t.priority) if hasattr(t.priority, "value") else t.priority,
-                "status": str(t.status) if hasattr(t.status, "value") else t.status,
+                "priority": t.priority.value if hasattr(t.priority, "value") else t.priority,
+                "status": t.status.value if hasattr(t.status, "value") else t.status,
                 "due_time": str(t.due_time) if t.due_time else None,
                 "estimated_minutes": t.estimated_minutes,
             })

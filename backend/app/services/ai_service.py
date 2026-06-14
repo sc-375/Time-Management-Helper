@@ -24,7 +24,7 @@ class AIService:
         if config.api_key:
             api_key = decrypt(config.api_key) or config.api_key
 
-        provider_str = str(config.provider) if hasattr(config.provider, "value") else config.provider
+        provider_str = config.provider.value if hasattr(config.provider, "value") else config.provider
 
         if provider_str == "ollama":
             return OllamaAdapter(base_url=config.base_url, model=config.model)
@@ -41,7 +41,7 @@ class AIService:
             .limit(20)
             .all()
         )
-        messages = [{"role": str(m.role) if hasattr(m.role, "value") else m.role, "content": m.content} for m in history]
+        messages = [{"role": m.role.value if hasattr(m.role, "value") else m.role, "content": m.content} for m in history]
 
         # Save user message
         db.add(AIChatMessage(role=MessageRole.user, content=user_message))
