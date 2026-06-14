@@ -6,7 +6,7 @@ class EmailConfigUpdate(BaseModel):
     smtp_host: str = Field(..., min_length=1)
     smtp_port: int = Field(..., ge=1, le=65535)
     sender_email: str = Field(..., min_length=1)
-    auth_code: str = Field(..., min_length=1)
+    auth_code: str | None = None
     enabled: bool = False
 
 

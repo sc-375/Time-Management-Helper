@@ -27,7 +27,7 @@
             <el-input v-model="llmForm.base_url" placeholder="http://localhost:11434" />
           </el-form-item>
           <el-form-item label="API Key" v-if="llmForm.provider !== 'ollama'">
-            <el-input v-model="llmForm.api_key" type="password" show-password placeholder="sk-..." />
+            <el-input v-model="llmForm.api_key" type="password" show-password placeholder="sk-..." @input="llmKeyDirty = true" />
           </el-form-item>
           <el-form-item label="Model">
             <el-input v-model="llmForm.model" placeholder="deepseek-r1:7b" />
@@ -59,7 +59,7 @@
             <el-input v-model="emailForm.sender_email" placeholder="your@qq.com" />
           </el-form-item>
           <el-form-item label="授权码">
-            <el-input v-model="emailForm.auth_code" type="password" show-password placeholder="QQ邮箱16位授权码" />
+            <el-input v-model="emailForm.auth_code" type="password" show-password placeholder="留空保持不变" @input="emailAuthDirty = true" />
           </el-form-item>
           <el-form-item label="启用">
             <el-switch v-model="emailForm.enabled" />
@@ -98,6 +98,8 @@ import { emailApi } from '@/api/email'
 const llmTesting = ref(false)
 const emailTesting = ref(false)
 const llmConnected = ref(false)
+const emailAuthDirty = ref(false)
+const llmKeyDirty = ref(false)
 
 const llmForm = reactive({
   provider: 'ollama',
@@ -130,7 +132,10 @@ onMounted(async () => {
 })
 
 async function saveLLM() {
-  await settingsApi.updateLLMConfig({ ...llmForm, api_key: llmForm.api_key || undefined })
+  const payload: any = { ...llmForm }
+  if (!llmKeyDirty.value) delete payload.api_key
+  await settingsApi.updateLLMConfig(payload)
+  llmKeyDirty.value = false
   ElMessage.success('LLM 配置已保存')
 }
 
@@ -144,7 +149,10 @@ async function testLLM() {
 }
 
 async function saveEmail() {
-  await emailApi.updateConfig({ ...emailForm })
+  const payload: any = { ...emailForm }
+  if (!emailAuthDirty.value) delete payload.auth_code
+  await emailApi.updateConfig(payload)
+  emailAuthDirty.value = false
   ElMessage.success('邮件配置已保存')
 }
 

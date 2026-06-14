@@ -44,7 +44,8 @@ def update_config(data: EmailConfigUpdate, db: Session = Depends(get_db)):
     config.smtp_host = data.smtp_host
     config.smtp_port = data.smtp_port
     config.sender_email = data.sender_email
-    config.auth_code = encrypt(data.auth_code)
+    if data.auth_code:  # only update if user actually entered a new one
+        config.auth_code = encrypt(data.auth_code)
     config.enabled = data.enabled
     db.commit()
     db.refresh(config)

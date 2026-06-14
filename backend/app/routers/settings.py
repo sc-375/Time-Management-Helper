@@ -44,10 +44,8 @@ def update_llm_config(data: LLMConfigUpdate, db: Session = Depends(get_db)):
 
     config.provider = data.provider
     config.base_url = data.base_url
-    if data.api_key:
+    if data.api_key:  # only update if non-empty (client omits field when unchanged)
         config.api_key = encrypt(data.api_key)
-    elif data.api_key == "":
-        config.api_key = ""
     config.model = data.model
     config.enabled = data.enabled
     db.commit()
