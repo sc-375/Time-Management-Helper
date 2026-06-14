@@ -1,5 +1,5 @@
 """Task business logic."""
-from datetime import datetime
+from datetime import date as date_type, datetime
 from typing import Optional, List
 from sqlalchemy.orm import Session, joinedload
 from ..models.task import Task
@@ -23,6 +23,10 @@ class TaskService:
             q = q.filter(Task.status == status)
         if priority:
             q = q.filter(Task.priority == priority)
+        if due_before:
+            q = q.filter(Task.due_date <= date_type.fromisoformat(due_before))
+        if due_after:
+            q = q.filter(Task.due_date >= date_type.fromisoformat(due_after))
         if search:
             q = q.filter(Task.title.ilike(f"%{search}%"))
         if tag:

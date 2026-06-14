@@ -21,7 +21,7 @@ def list_tasks(
     search: Optional[str] = None,
     db: Session = Depends(get_db),
 ):
-    tasks = task_service.list_tasks(db, status=status, priority=priority, tag=tag, search=search)
+    tasks = task_service.list_tasks(db, status=status, priority=priority, due_before=due_before, due_after=due_after, tag=tag, search=search)
     return success(data=[_task_to_out(t) for t in tasks])
 
 

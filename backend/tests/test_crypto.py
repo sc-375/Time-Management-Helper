@@ -1,8 +1,10 @@
 """Tests for crypto utility."""
 import os
+import sys
 
 # Set SECRET_KEY before importing crypto module
 os.environ["SECRET_KEY"] = "test-key-32-chars-long!!!!!!"
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 # Now reload config and crypto to pick up the test key
 import importlib

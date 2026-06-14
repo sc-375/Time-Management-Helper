@@ -24,6 +24,7 @@
         :tasks="tasksByDate"
         @prev="changeWeek(-1)"
         @next="changeWeek(1)"
+        @task-click="handleWeekTaskClick"
       />
     </div>
 
@@ -96,6 +97,15 @@ function onDayClick(dateStr: string) {
   selectedDate.value = dateStr
   selectedTasks.value = tasksByDate.value[dateStr] || []
   showDayDialog.value = true
+}
+
+function handleWeekTaskClick(task: any) {
+  const dateStr = task.due_date || ''
+  if (dateStr && tasksByDate.value[dateStr]) {
+    selectedDate.value = dateStr
+    selectedTasks.value = tasksByDate.value[dateStr]
+    showDayDialog.value = true
+  }
 }
 
 function priorityType(p: string) {
